@@ -2,11 +2,51 @@
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import { Table, TableHeader, TableColumn, TableBody } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, TableRow, TableCell, Input } from "@nextui-org/react";
+import { useWallets } from "@privy-io/react-auth";
+import { encodeFunctionData } from "viem";
 
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+  const { wallets } = useWallets();
+  const wallet = wallets[0]; // Replace this with your desired wallet\\
+  const handleSupply = async () => {
+
+    const provider = await wallet.getEthereumProvider();
+    const abi = [
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "depositCollateral",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+    ] as const;
+
+    const data = encodeFunctionData({
+      abi,
+      functionName: 'depositCollateral',
+      args: [BigInt(10)]
+    })
+    const transactionRequest = {
+      to: '0x7125a780cd26DAFD897cA72AA838fBFb0665a508',
+      data: data,
+      value: 0,
+    };
+    const transactionHash = await provider.request({
+      method: 'eth_sendTransaction',
+      params: [transactionRequest],
+    });
+    alert(`Transaction hash: ${transactionHash}`);
+
+  }
   return (
     <div className="flex flex-col justify-center items-center h-[65vh] w-full">
       <Card >
@@ -116,11 +156,11 @@ export default function Home() {
                     <p>Collateralization</p>
                     <p>Enabled</p>
                   </div>
-               
+
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button fullWidth color="primary" onPress={onClose}>
+                <Button onClick={()=>handleSupply()} fullWidth color="primary" onPress={onClose}>
                   Supply
                 </Button>
               </ModalFooter>
