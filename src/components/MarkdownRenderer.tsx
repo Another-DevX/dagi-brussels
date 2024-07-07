@@ -10,7 +10,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
         const rawMarkup = marked(markdown);
         return { __html: rawMarkup };
     };
-
+    //@ts-ignore
     return <div className="markdown-body" dangerouslySetInnerHTML={getMarkdownText()} />;
 };
 

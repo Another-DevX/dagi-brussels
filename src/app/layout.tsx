@@ -5,6 +5,7 @@ import Providers from "./providers";
 import Elektra from "@/public/images/elektra.jpg"
 import { Button } from "@nextui-org/react";
 import Chat from "@/components/Chat";
+import LogInButton from "@/components/LogInButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Providers>
           <main className="min-h-screen">
             <div className="h-[35vh] bg-[#ffff25] flex justify-center items-center w-full">
+              <LogInButton />
               <img src={Elektra.src} alt="elektramx" />
             </div>
             {children}

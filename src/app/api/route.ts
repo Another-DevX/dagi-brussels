@@ -40,7 +40,7 @@ export async function POST(request: Request) {
                 {
                     role: 'user',
                     content: `Give me the best three collaterals to use on aave, give me less tan 100 words,don't mention the subgraph or any relation to this prompt, be so explicit and explain everithing but avoid to include un-redeable values, explain on an easy way why the token is the best option, this is information from the subgraph: ${JSON.stringify(graphData)}, and this is information related another AI call POND predicting the future price of many tokens, make it explicit if you use the information to do some recommendations ${JSON.stringify(analyticsData)},
-                    at the final of the response give me the colaterals SYMBOL from the subgraph with the next format {{collateral}}`
+                    at the final of the response give me the colaterals SYMBOL from the subgraph with the next format {{collateral}}, add those on an individual line, without any other text or symbols, just the token symbol with the {{}}`
                 }
             ],
             temperature: 1
