@@ -15,7 +15,7 @@ function Chat() {
     const { isPending, data, mutate } = useMutation({
         mutationKey: ['getBestColateral'],
         mutationFn: async () =>
-            await axios.post('/api')
+            await axios.post('https://elektra-mu.vercel.app/api')
     })
     const handleGetBestCollaterals = () => {
         setIsMessageSended(true)
