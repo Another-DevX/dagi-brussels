@@ -4,12 +4,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import { PrivyProvider } from '@privy-io/react-auth';
 import { sepolia } from 'viem/chains';
+import { TokenProvider } from '@/context/TokenProvider';
 
 const queryClient = new QueryClient()
 function Providers({ children }: { children: React.ReactNode }) {
     return (
         <NextUIProvider>
             <QueryClientProvider client={queryClient}>
+
                 <PrivyProvider
                     appId="clyayk82e07hzqhbnz0s0m6k3"
                     config={{
@@ -26,8 +28,9 @@ function Providers({ children }: { children: React.ReactNode }) {
                         defaultChain: sepolia
                     }}
                 >
-
-                    {children}
+                    <TokenProvider>
+                        {children}
+                    </TokenProvider>
                 </PrivyProvider>
             </QueryClientProvider>
         </NextUIProvider>

@@ -1,13 +1,17 @@
 "use client"
+import { useTokenContext } from "@/context/TokenProvider";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import { Table, TableHeader, TableColumn, TableBody } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, TableRow, TableCell, Input } from "@nextui-org/react";
 import { useWallets } from "@privy-io/react-auth";
+import { useEffect, useState } from "react";
 import { encodeFunctionData } from "viem";
 
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { exampleState } = useTokenContext();
+
 
   const { wallets } = useWallets();
   const wallet = wallets[0]; // Replace this with your desired wallet\\
@@ -47,6 +51,13 @@ export default function Home() {
     alert(`Transaction hash: ${transactionHash}`);
 
   }
+
+  useEffect(() => {
+    if (exampleState !== 'ETH ') {
+      onOpen()
+    }
+  }, [exampleState])
+
   return (
     <div className="flex flex-col justify-center items-center h-[65vh] w-full">
       <Card >
@@ -136,7 +147,7 @@ export default function Home() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 text-black">Supply ETH</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-black">Supply {exampleState}</ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -160,7 +171,7 @@ export default function Home() {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button onClick={()=>handleSupply()} fullWidth color="primary" onPress={onClose}>
+                <Button onClick={() => handleSupply()} fullWidth color="primary" onPress={onClose}>
                   Supply
                 </Button>
               </ModalFooter>

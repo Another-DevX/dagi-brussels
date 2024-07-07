@@ -6,12 +6,15 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ScrollShadow } from "@nextui-org/react";
 import MarkdownRenderer from './MarkdownRenderer';
-import {CircularProgress} from "@nextui-org/react";
+import { CircularProgress } from "@nextui-org/react";
+import { useTokenContext } from '@/context/TokenProvider';
 
 
 function Chat() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [isMessageSended, setIsMessageSended] = useState(false)
+    const { setExampleState } = useTokenContext();
+
     const { isPending, data, mutate } = useMutation({
         mutationKey: ['getBestColateral'],
         mutationFn: async () =>
@@ -74,12 +77,12 @@ function Chat() {
                                         <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }} className='flex flex-col gap-2 p-6 w-3/5 text-white bg-blue-600 rounded-lg rounded-bl-none  '>
-                                            {isPending ? 
-                                            <div className='flex justify-center items-center'>
-<div className="loader"></div>
+                                            {isPending ?
+                                                <div className='flex justify-center items-center'>
+                                                    <div className="loader"></div>
 
-                                            </div>
-                                            :
+                                                </div>
+                                                :
                                                 (() => {
                                                     const { cleanedText } = extractCollateralsAndCleanText(data?.data.responseData.choices[0].message.content);
                                                     return (
@@ -97,7 +100,10 @@ function Chat() {
                                         return (
                                             <div className='flex gap-2'>
                                                 {collaterals.map((collateral, index) => (
-                                                    <Button fullWidth key={index} variant='flat'>{collateral}</Button>
+                                                    <Button onClick={() => {
+                                                        setExampleState(collateral.toString())
+                                                        onClose()
+                                                    }} fullWidth key={index} variant='flat'>{collateral}</Button>
                                                 ))}
                                             </div>
                                         )
