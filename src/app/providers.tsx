@@ -3,6 +3,7 @@ import { NextUIProvider } from '@nextui-org/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import { PrivyProvider } from '@privy-io/react-auth';
+import { sepolia } from 'viem/chains';
 
 const queryClient = new QueryClient()
 function Providers({ children }: { children: React.ReactNode }) {
@@ -22,6 +23,7 @@ function Providers({ children }: { children: React.ReactNode }) {
                         embeddedWallets: {
                             createOnLogin: 'users-without-wallets',
                         },
+                        defaultChain: sepolia
                     }}
                 >
 
