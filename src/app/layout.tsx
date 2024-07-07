@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Elektra from "@/public/images/elektra.jpg"
+import { Button } from "@nextui-org/react";
+import Chat from "@/components/Chat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,7 @@ export default function RootLayout({
               <img src={Elektra.src} alt="elektramx" />
             </div>
             {children}
+            <Chat />
           </main>
         </Providers>
       </body>

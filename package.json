@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.2",
+    "@tanstack/react-query": "^5.50.1",
+    "axios": "^1.7.2",
     "framer-motion": "^11.2.13",
+    "marked": "^13.0.2",
     "next": "14.2.4",
     "permissionless": "^0.1.36",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/marked": "^6.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
